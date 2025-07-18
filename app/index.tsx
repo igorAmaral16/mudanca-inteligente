@@ -1,63 +1,35 @@
-import React, { useState } from 'react'
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet,
-    StatusBar,
-    ActivityIndicator,
-} from 'react-native'
+// app/index.tsx
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 
-const CORES = {
-    primario: '#e01a66',
-    secundario: '#a81971',
-    textoEscuro: '#333',
-    fundo: '#ffffff',
-    cinzaClaro: '#f2f2f2',
-}
-
 export default function HomeScreen() {
-    const roteador = useRouter()
-    const [estaCarregando, setEstaCarregando] = useState(false)
-
-    function navegarPara(caminho: string) {
-        setEstaCarregando(true)
-        setTimeout(() => {
-            setEstaCarregando(false)
-            roteador.push(caminho)
-        }, 300) // simula transição
-    }
+    const router = useRouter()
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor={CORES.fundo} />
-            <Text style={styles.titulo}>Mudança Inteligente</Text>
+            <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+
+            <Text style={styles.titulo}>📦 Mudança Inteligente</Text>
 
             <TouchableOpacity
-                style={styles.botao}
-                onPress={() => navegarPara('/novo')}
+                style={[styles.botao, styles.botaoPrimario]}
+                onPress={() => router.push({ pathname: './novo' })}
                 activeOpacity={0.8}
             >
                 <Ionicons name="add-circle-outline" size={24} color="#fff" />
-                <Text style={styles.textoBotao}>Nova Mudança.</Text>
+                <Text style={styles.textoBotao}>Nova Mudança</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={[styles.botao, styles.botaoSecundario]}
-                onPress={() => navegarPara('/historico')}
+                onPress={() => router.push({ pathname: '/historico' })}
                 activeOpacity={0.8}
             >
                 <Ionicons name="folder-open-outline" size={24} color="#fff" />
-                <Text style={styles.textoBotao}>Planos Salvos.</Text>
+                <Text style={styles.textoBotao}>Histórico</Text>
             </TouchableOpacity>
-
-            {estaCarregando && (
-                <View style={styles.overlayCarregando}>
-                    <ActivityIndicator size="large" color={CORES.primario} />
-                </View>
-            )}
         </View>
     )
 }
@@ -65,39 +37,37 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: CORES.fundo,
+        backgroundColor: '#ffffff',
         padding: 24,
         justifyContent: 'center',
+        alignItems: 'center',
     },
     titulo: {
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: '700',
-        color: CORES.primario,
-        textAlign: 'center',
+        color: '#e01a66',
         marginBottom: 40,
     },
     botao: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: CORES.primario,
         paddingVertical: 14,
-        paddingHorizontal: 20,
-        borderRadius: 10,
-        marginBottom: 16,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        marginBottom: 20,
+        width: '100%',
+        justifyContent: 'center',
+    },
+    botaoPrimario: {
+        backgroundColor: '#e01a66',
     },
     botaoSecundario: {
-        backgroundColor: CORES.secundario,
+        backgroundColor: '#a81971',
     },
     textoBotao: {
-        color: '#fff',
+        color: '#ffffff',
         fontSize: 18,
+        marginLeft: 12,
         fontWeight: '600',
-        marginLeft: 10,
-    },
-    overlayCarregando: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(255,255,255,0.7)',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 })
