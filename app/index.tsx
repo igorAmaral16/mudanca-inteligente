@@ -1,4 +1,3 @@
-// app/index.tsx
 import React, { useState } from 'react'
 import {
     View,
@@ -42,7 +41,7 @@ export default function HomeScreen() {
                 activeOpacity={0.8}
             >
                 <Ionicons name="add-circle-outline" size={24} color="#fff" />
-                <Text style={styles.textoBotao}>Nova Mudança</Text>
+                <Text style={styles.textoBotao}>Nova Mudança.</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -51,7 +50,7 @@ export default function HomeScreen() {
                 activeOpacity={0.8}
             >
                 <Ionicons name="folder-open-outline" size={24} color="#fff" />
-                <Text style={styles.textoBotao}>Planos Salvos</Text>
+                <Text style={styles.textoBotao}>Planos Salvos.</Text>
             </TouchableOpacity>
 
             {estaCarregando && (
